@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class HandlerFactory {
 
-    public static QueryHandler getHandler(HttpServletRequest request, DataBase dataBase) {
+    public static Handler getHandler(HttpServletRequest request, DataBase dataBase) {
         String command = request.getParameter("command");
 
         if ("max".equals(command)) {
@@ -18,7 +18,7 @@ public class HandlerFactory {
         } if ("count".equals(command)) {
             return new CountHandler(dataBase);
         } else {
-            return new UnknownCommandHandler(dataBase, command);
+            return new UnknownCommandHandler();
         }
     }
 }

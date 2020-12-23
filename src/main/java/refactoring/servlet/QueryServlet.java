@@ -1,6 +1,7 @@
 package refactoring.servlet;
 
 import refactoring.database.DataBase;
+import refactoring.query.Handler;
 import refactoring.query.QueryHandler;
 
 import javax.servlet.http.HttpServlet;
@@ -22,9 +23,9 @@ public class QueryServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
-        QueryHandler handler = getHandler(request, database);
+        Handler handler = getHandler(request, database);
         try {
-            handler.execute(response);
+            handler.execute(request, response);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

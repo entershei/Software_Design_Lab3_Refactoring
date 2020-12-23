@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 import refactoring.servlet.GetProductsServlet;
+import refactoring.utils.Product;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -24,7 +25,7 @@ public class GetProductsServletTest extends TestHelper {
     public void OneProduct() throws SQLException {
         List<Product> products = Collections.singletonList(new Product("Car", "1000000"));
 
-        addProductToTable(products.get(0).name, products.get(0).price, dataBase);
+        addProductToTable(products.get(0).getName(), Long.toString(products.get(0).getPrice()), dataBase);
         servlet.doGet(request, response);
 
         Assert.assertEquals(expectedGetResponse(products), stringWriter.toString());
@@ -38,7 +39,7 @@ public class GetProductsServletTest extends TestHelper {
         products.add(new Product("headphones", "7000"));
 
         for (Product product : products) {
-            addProductToTable(product.name, product.price, dataBase);
+            addProductToTable(product.getName(), Long.toString(product.getPrice()), dataBase);
         }
         servlet.doGet(request, response);
 

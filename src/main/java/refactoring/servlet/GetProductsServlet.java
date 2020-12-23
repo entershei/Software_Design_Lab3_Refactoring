@@ -23,7 +23,7 @@ public class GetProductsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         QueryHandler handler = new GetProductsHandler(database);
         try {
-            handler.execute(response);
+            handler.execute(request, response);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

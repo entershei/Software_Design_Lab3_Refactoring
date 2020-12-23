@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 import refactoring.servlet.AddProductServlet;
+import refactoring.utils.Product;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,8 +16,8 @@ public class AddProductServletTest extends TestHelper {
 
     private void addProducts(List<Product> products) throws IOException {
         for (Product product : products) {
-            when(request.getParameter("name")).thenReturn(product.name);
-            when(request.getParameter("price")).thenReturn(product.price);
+            when(request.getParameter("name")).thenReturn(product.getName());
+            when(request.getParameter("price")).thenReturn(Long.toString(product.getPrice()));
         }
         servlet.doGet(request, response);
     }
@@ -24,7 +25,6 @@ public class AddProductServletTest extends TestHelper {
     @Test
     public void OneProduct() throws IOException {
         addProducts(Collections.singletonList(new Product("Book", "300")));
-
         Assert.assertEquals("OK\n", stringWriter.toString());
     }
 

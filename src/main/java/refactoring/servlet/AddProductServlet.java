@@ -1,14 +1,12 @@
 package refactoring.servlet;
 
 import refactoring.database.DataBase;
+import refactoring.query.AddProductHandler;
+import refactoring.query.Handler;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-import static refactoring.database.DataBaseUtils.addProductToTable;
-import static refactoring.html.HtmlManager.printOK;
 
 /**
  * @author akirakozov
@@ -22,18 +20,15 @@ public class AddProductServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String name = request.getParameter("name");
-        long price = Long.parseLong(request.getParameter("price"));
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
+        Handler handler = new AddProductHandler(database);
 
         try {
-            addProductToTable(name, Long.toString(price), database);
+            handler.execute(request, response);
+        } catch (NumberFormatException numberFormatException) {
+            throw numberFormatException;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
-        printOK(response.getWriter());
     }
 }

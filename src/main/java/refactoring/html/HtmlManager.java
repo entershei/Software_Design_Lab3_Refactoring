@@ -1,5 +1,8 @@
 package refactoring.html;
 
+import refactoring.utils.Product;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,6 +35,10 @@ public class HtmlManager {
         title.ifPresent(printWriter::println);
         printWriter.print(body);
         printWriter.println("</body></html>");
+    }
+
+    public static Product requestProduct(HttpServletRequest request) {
+        return new Product(request.getParameter("name"), request.getParameter("price"));
     }
 
     public static void printOK(PrintWriter printWriter) {

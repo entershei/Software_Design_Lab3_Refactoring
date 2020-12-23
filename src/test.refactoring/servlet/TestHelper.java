@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import refactoring.database.DataBase;
+import refactoring.utils.Product;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +42,7 @@ public class TestHelper {
     protected String expectedGetResponse(List<Product> products) {
         StringBuilder res = new StringBuilder();
         for (Product product : products) {
-            res.append(product.name).append("\t").append(product.price).append("</br>\n");
+            res.append(product.getName()).append("\t").append(product.getPrice()).append("</br>\n");
         }
 
         return wrap(res.toString());
@@ -49,15 +50,5 @@ public class TestHelper {
 
     protected String wrap(String s) {
         return "<html><body>\n" + s + "</body></html>\n";
-    }
-
-    protected static class Product {
-        public final String name;
-        public final String price;
-
-        public Product(String name, String price) {
-            this.name = name;
-            this.price = price;
-        }
     }
 }
