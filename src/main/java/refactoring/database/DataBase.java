@@ -11,7 +11,7 @@ public class DataBase {
     private static final String DB_NAME = "jdbc:sqlite:test.db";
 
     public void executeSQL(String sql) throws SQLException {
-        try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+        try (Connection c = DriverManager.getConnection(DB_NAME)) {
             Statement stmt = c.createStatement();
             stmt.executeUpdate(sql);
             stmt.close();

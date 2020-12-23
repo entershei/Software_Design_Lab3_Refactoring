@@ -5,6 +5,7 @@ import refactoring.servlet.GetProductsServlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GetProductsServletTest extends TestHelper {
@@ -19,8 +20,7 @@ public class GetProductsServletTest extends TestHelper {
 
     @Test
     public void OneProduct() throws SQLException, IOException {
-        List<Product> products = new ArrayList<>();
-        products.add(new Product("Car", "1000000"));
+        List<Product> products = Collections.singletonList(new Product("Car", "1000000"));
 
         dataBase.addProductToTable(products.get(0).name, products.get(0).price);
         servlet.doGet(request, response);
