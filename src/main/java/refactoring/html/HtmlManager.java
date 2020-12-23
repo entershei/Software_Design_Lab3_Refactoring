@@ -37,4 +37,8 @@ public class HtmlManager {
     public static void printOK(PrintWriter printWriter) {
         printWriter.println("OK");
     }
+
+    public static String wrap(String s) {
+        return "<h1>" + s + "</h1>";
+    }
 }

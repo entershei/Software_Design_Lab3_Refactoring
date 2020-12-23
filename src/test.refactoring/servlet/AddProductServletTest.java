@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 
 public class AddProductServletTest extends TestHelper {
 
-    private final AddProductServlet servlet = new AddProductServlet();
+    private final AddProductServlet servlet = new AddProductServlet(dataBase);
 
     private void addProducts(List<Product> products) throws IOException {
         for (Product product : products) {

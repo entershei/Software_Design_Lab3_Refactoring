@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static refactoring.database.DataBaseUtils.createTableIfNotExist;
 
 public class TestHelper {
 
@@ -22,19 +23,19 @@ public class TestHelper {
     protected HttpServletResponse response;
 
     protected final StringWriter stringWriter = new StringWriter();
-    protected final DataBase dataBase = new DataBase();
+    protected final DataBase dataBase = new DataBase("jdbc:sqlite:test.db");
 
     @Before
     public void setUp() throws IOException, SQLException {
         MockitoAnnotations.initMocks(this);
         clearTable();
-        dataBase.createTableIfNotExist();
+        createTableIfNotExist(dataBase);
         when(response.getWriter()).thenReturn(new PrintWriter(stringWriter));
     }
 
     @After
     public void clearTable() throws SQLException {
-        dataBase.executeSQL("DELETE FROM PRODUCT");
+        dataBase.executeSql("DELETE FROM PRODUCT");
     }
 
     protected String expectedGetResponse(List<Product> products) {

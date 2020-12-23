@@ -1,37 +1,31 @@
 package refactoring.servlet;
 
+import refactoring.database.DataBase;
+import refactoring.query.GetProductsHandler;
+import refactoring.query.QueryHandler;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Optional;
-
-import static refactoring.html.HtmlManager.*;
 
 /**
  * @author akirakozov
  */
 public class GetProductsServlet extends HttpServlet {
 
+    private final DataBase database;
+
+    public GetProductsServlet(DataBase database) {
+        this.database = database;
+    }
+
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
+        QueryHandler handler = new GetProductsHandler(database);
         try {
-            try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
-                Statement stmt = c.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCT");
-                printResponse(Optional.empty(), printAllEntries(rs), response.getWriter());
-                rs.close();
-                stmt.close();
-            }
+            handler.execute(response);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
     }
 }

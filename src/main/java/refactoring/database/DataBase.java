@@ -1,32 +1,44 @@
 package refactoring.database;
 
-import org.junit.After;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DataBase {
-    private static final String DB_NAME = "jdbc:sqlite:test.db";
+    private final String dataBaseName;
 
-    public void executeSQL(String sql) throws SQLException {
-        try (Connection c = DriverManager.getConnection(DB_NAME)) {
-            Statement stmt = c.createStatement();
-            stmt.executeUpdate(sql);
-            stmt.close();
+    public DataBase(String dataBaseName) {
+        this.dataBaseName = dataBaseName;
+    }
+
+    public void executeSql(String sql) throws SQLException {
+        Connection c = DriverManager.getConnection(dataBaseName);
+        Statement stmt = c.createStatement();
+        stmt.executeUpdate(sql);
+        stmt.close();
+    }
+
+    public ToClose executeQuery(String sql) throws SQLException {
+        Connection c = DriverManager.getConnection(dataBaseName);
+        Statement stmt = c.createStatement();
+        ResultSet resultSet = stmt.executeQuery(sql);
+        return new ToClose(stmt, resultSet);
+    }
+
+    public static class ToClose {
+        private final Statement statement;
+        private final ResultSet resultSet;
+
+        ToClose(Statement statement, ResultSet resultSet) {
+            this.statement = statement;
+            this.resultSet = resultSet;
         }
-    }
 
-    public void createTableIfNotExist() throws SQLException {
-        executeSQL("CREATE TABLE IF NOT EXISTS PRODUCT" +
-                "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                " NAME           TEXT    NOT NULL, " +
-                " PRICE          INT     NOT NULL)");
-    }
+        public ResultSet getResultSet() {
+            return resultSet;
+        }
 
-    public void addProductToTable(String name, String price) throws SQLException {
-        executeSQL("INSERT INTO PRODUCT " +
-                "(NAME, PRICE) VALUES (\"" + name + "\"," + price + ")");
+        public void close() throws SQLException {
+            statement.close();
+            resultSet.close();
+        }
     }
 }

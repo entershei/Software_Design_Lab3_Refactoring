@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static refactoring.database.DataBaseUtils.addProductToTable;
+
 public class GetProductsServletTest extends TestHelper {
 
-    private final GetProductsServlet servlet = new GetProductsServlet();
+    private final GetProductsServlet servlet = new GetProductsServlet(dataBase);
 
     @Test
     public void NoTableExist() throws IOException {
@@ -19,24 +21,24 @@ public class GetProductsServletTest extends TestHelper {
     }
 
     @Test
-    public void OneProduct() throws SQLException, IOException {
+    public void OneProduct() throws SQLException {
         List<Product> products = Collections.singletonList(new Product("Car", "1000000"));
 
-        dataBase.addProductToTable(products.get(0).name, products.get(0).price);
+        addProductToTable(products.get(0).name, products.get(0).price, dataBase);
         servlet.doGet(request, response);
 
         Assert.assertEquals(expectedGetResponse(products), stringWriter.toString());
     }
 
     @Test
-    public void ManyProducts() throws SQLException, IOException {
+    public void ManyProducts() throws SQLException {
         List<Product> products = new ArrayList<>();
         products.add(new Product("Car", "3000000"));
         products.add(new Product("Bicycle", "10000"));
         products.add(new Product("headphones", "7000"));
 
         for (Product product : products) {
-            dataBase.addProductToTable(product.name, product.price);
+            addProductToTable(product.name, product.price, dataBase);
         }
         servlet.doGet(request, response);
 
