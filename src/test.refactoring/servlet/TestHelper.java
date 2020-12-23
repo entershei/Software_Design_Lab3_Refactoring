@@ -50,7 +50,6 @@ public class TestHelper {
         return "<html><body>\n" + s + "</body></html>\n";
     }
 
-
     protected static class Product {
         public final String name;
         public final String price;

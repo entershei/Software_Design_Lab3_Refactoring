@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+import static refactoring.html.HtmlManager.printOK;
+
 /**
  * @author akirakozov
  */
@@ -32,6 +34,6 @@ public class AddProductServlet extends HttpServlet {
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("OK");
+        printOK(response.getWriter());
     }
 }
