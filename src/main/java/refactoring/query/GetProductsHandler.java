@@ -1,6 +1,6 @@
 package refactoring.query;
 
-import refactoring.database.DataBase;
+import refactoring.database.Database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,13 +10,13 @@ import static refactoring.html.HtmlManager.printAllEntries;
 
 public class GetProductsHandler extends QueryHandler {
 
-    public GetProductsHandler(DataBase dataBase) {
-        super(dataBase);
+    public GetProductsHandler(Database database) {
+        super(database);
     }
 
     @Override
-    protected String convertToString(ResultSet rs) throws SQLException {
-        return printAllEntries(rs);
+    protected String convertToString(ResultSet resultSet) throws SQLException {
+        return printAllEntries(resultSet);
     }
 
     @Override

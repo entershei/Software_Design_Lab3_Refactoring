@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static refactoring.database.DataBaseUtils.addProductToTable;
+import static refactoring.database.DatabaseUtils.addProductToTable;
 
 public class GetProductsServletTest extends TestHelper {
 
-    private final GetProductsServlet servlet = new GetProductsServlet(dataBase);
+    private final GetProductsServlet servlet = new GetProductsServlet(database);
 
     @Test
     public void NoTableExist() throws IOException {
@@ -25,7 +25,7 @@ public class GetProductsServletTest extends TestHelper {
     public void OneProduct() throws SQLException {
         List<Product> products = Collections.singletonList(new Product("Car", "1000000"));
 
-        addProductToTable(products.get(0).getName(), Long.toString(products.get(0).getPrice()), dataBase);
+        addProductToTable(products.get(0).getName(), Long.toString(products.get(0).getPrice()), database);
         servlet.doGet(request, response);
 
         Assert.assertEquals(expectedGetResponse(products), stringWriter.toString());
@@ -39,7 +39,7 @@ public class GetProductsServletTest extends TestHelper {
         products.add(new Product("headphones", "7000"));
 
         for (Product product : products) {
-            addProductToTable(product.getName(), Long.toString(product.getPrice()), dataBase);
+            addProductToTable(product.getName(), Long.toString(product.getPrice()), database);
         }
         servlet.doGet(request, response);
 

@@ -1,6 +1,6 @@
 package refactoring.servlet;
 
-import refactoring.database.DataBase;
+import refactoring.database.Database;
 import refactoring.query.AddProductHandler;
 import refactoring.query.Handler;
 
@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AddProductServlet extends HttpServlet {
 
-    private final DataBase database;
+    private final Database database;
 
-    public AddProductServlet(DataBase database) {
+    public AddProductServlet(Database database) {
         this.database = database;
     }
 

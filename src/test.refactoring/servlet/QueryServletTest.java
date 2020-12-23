@@ -4,14 +4,13 @@ import refactoring.servlet.QueryServlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import static org.mockito.Mockito.when;
-import static refactoring.database.DataBaseUtils.addProductToTable;
+import static refactoring.database.DatabaseUtils.addProductToTable;
 
 public class QueryServletTest extends TestHelper {
 
-    private final QueryServlet servlet = new QueryServlet(dataBase);
+    private final QueryServlet servlet = new QueryServlet(database);
 
     @Test
     public void EmptyTableMaxCommand() throws IOException {
@@ -95,9 +94,9 @@ public class QueryServletTest extends TestHelper {
 
 
     private void addExamples() throws SQLException {
-        addProductToTable("Sugar", "70", dataBase);
-        addProductToTable("Cup", "200", dataBase);
-        addProductToTable("Tea", "100", dataBase);
+        addProductToTable("Sugar", "70", database);
+        addProductToTable("Cup", "200", database);
+        addProductToTable("Tea", "100", database);
     }
 
     private String maxResponse(String name, String price) {

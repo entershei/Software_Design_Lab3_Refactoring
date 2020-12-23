@@ -7,5 +7,5 @@ import java.sql.SQLException;
 
 public interface Handler {
 
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException;
+    void execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException;
 }

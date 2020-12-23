@@ -2,7 +2,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import refactoring.database.DataBase;
+import refactoring.database.Database;
 import refactoring.utils.Product;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static refactoring.database.DataBaseUtils.createTableIfNotExist;
+import static refactoring.database.DatabaseUtils.createTableIfNotExist;
 
 public class TestHelper {
 
@@ -24,19 +24,19 @@ public class TestHelper {
     protected HttpServletResponse response;
 
     protected final StringWriter stringWriter = new StringWriter();
-    protected final DataBase dataBase = new DataBase("jdbc:sqlite:test.db");
+    protected final Database database = new Database("jdbc:sqlite:test.db");
 
     @Before
     public void setUp() throws IOException, SQLException {
         MockitoAnnotations.initMocks(this);
         clearTable();
-        createTableIfNotExist(dataBase);
+        createTableIfNotExist(database);
         when(response.getWriter()).thenReturn(new PrintWriter(stringWriter));
     }
 
     @After
     public void clearTable() throws SQLException {
-        dataBase.executeSql("DELETE FROM PRODUCT");
+        database.executeSql("DELETE FROM PRODUCT");
     }
 
     protected String expectedGetResponse(List<Product> products) {

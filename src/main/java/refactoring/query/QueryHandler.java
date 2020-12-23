@@ -1,6 +1,6 @@
 package refactoring.query;
 
-import refactoring.database.DataBase;
+import refactoring.database.Database;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,30 +9,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-import static refactoring.database.DataBaseUtils.executeQuery;
+import static refactoring.database.DatabaseUtils.executeQuery;
 import static refactoring.html.HtmlManager.printResponse;
 
 public abstract class QueryHandler implements Handler {
 
-    protected final DataBase dataBase;
+    protected final Database database;
 
-    protected QueryHandler(DataBase dataBase) {
-        this.dataBase = dataBase;
+    protected QueryHandler(Database database) {
+        this.database = database;
     }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        DataBase.ToClose rs = executeQuery(getSelect(), dataBase);
+        Database.QueryResponse queryResponse = executeQuery(getSelect(), database);
         Optional<String> title = getTitle();
-        String body = convertToString(rs.getResultSet());
+        String body = convertToString(queryResponse.getResultSet());
         printResponse(title, body, response.getWriter());
-        rs.close();
+        queryResponse.close();
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
-    protected abstract String convertToString(ResultSet rs) throws SQLException;
+    protected abstract String convertToString(ResultSet resultSet) throws SQLException;
 
     protected abstract Optional<String> getTitle();
 

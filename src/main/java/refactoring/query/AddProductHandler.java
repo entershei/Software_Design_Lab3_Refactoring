@@ -1,23 +1,22 @@
 package refactoring.query;
 
-import refactoring.database.DataBase;
+import refactoring.database.Database;
 import refactoring.utils.Product;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static refactoring.database.DataBaseUtils.addProductToTable;
+import static refactoring.database.DatabaseUtils.addProductToTable;
 import static refactoring.html.HtmlManager.printOK;
 import static refactoring.html.HtmlManager.requestProduct;
 
 public class AddProductHandler implements Handler {
 
-    private final DataBase database;
+    private final Database database;
 
-    public AddProductHandler(DataBase database) {
+    public AddProductHandler(Database database) {
         this.database = database;
     }
 

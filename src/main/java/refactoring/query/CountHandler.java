@@ -1,6 +1,6 @@
 package refactoring.query;
 
-import refactoring.database.DataBase;
+import refactoring.database.Database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,13 +10,13 @@ import static refactoring.html.HtmlManager.printSingleInt;
 
 public class CountHandler extends QueryHandler {
 
-    protected CountHandler(DataBase dataBase) {
-        super(dataBase);
+    protected CountHandler(Database database) {
+        super(database);
     }
 
     @Override
-    protected String convertToString(ResultSet rs) throws SQLException {
-        return printSingleInt(rs);
+    protected String convertToString(ResultSet resultSet) throws SQLException {
+        return printSingleInt(resultSet);
     }
 
     @Override

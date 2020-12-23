@@ -10,20 +10,20 @@ import java.util.Optional;
 
 public class HtmlManager {
 
-    public static String printSingleInt(ResultSet rs) throws SQLException {
-        if (rs.next()) {
-            return rs.getInt(1) + "\n";
+    public static String printSingleInt(ResultSet resultSet) throws SQLException {
+        if (resultSet.next()) {
+            return resultSet.getInt(1) + "\n";
         } else {
             return "";
         }
     }
 
-    public static String printAllEntries(ResultSet rs) throws SQLException {
+    public static String printAllEntries(ResultSet resultSet) throws SQLException {
         StringBuilder sb = new StringBuilder();
 
-        while (rs.next()) {
-            String name = rs.getString("name");
-            int price = rs.getInt("price");
+        while (resultSet.next()) {
+            String name = resultSet.getString("name");
+            int price = resultSet.getInt("price");
             sb.append(name).append("\t").append(price).append("</br>\n");
         }
 
