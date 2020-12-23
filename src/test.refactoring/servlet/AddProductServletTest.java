@@ -3,7 +3,6 @@ import org.junit.Test;
 import refactoring.servlet.AddProductServlet;
 import refactoring.utils.Product;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

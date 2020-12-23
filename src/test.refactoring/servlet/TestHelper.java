@@ -18,13 +18,12 @@ import static refactoring.database.DatabaseUtils.createTableIfNotExist;
 
 public class TestHelper {
 
+    protected final StringWriter stringWriter = new StringWriter();
+    protected final Database database = new Database("jdbc:sqlite:test.db");
     @Mock
     protected HttpServletRequest request;
     @Mock
     protected HttpServletResponse response;
-
-    protected final StringWriter stringWriter = new StringWriter();
-    protected final Database database = new Database("jdbc:sqlite:test.db");
 
     @Before
     public void setUp() throws IOException, SQLException {

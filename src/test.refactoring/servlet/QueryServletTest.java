@@ -2,7 +2,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import refactoring.servlet.QueryServlet;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.mockito.Mockito.when;
@@ -13,42 +12,42 @@ public class QueryServletTest extends TestHelper {
     private final QueryServlet servlet = new QueryServlet(database);
 
     @Test
-    public void EmptyTableMaxCommand() throws IOException {
+    public void EmptyTableMaxCommand() {
         when(request.getParameter("command")).thenReturn("max");
         servlet.doGet(request, response);
         Assert.assertEquals(maxResponse("", ""), stringWriter.toString());
     }
 
     @Test
-    public void EmptyTableMinCommand() throws IOException {
+    public void EmptyTableMinCommand() {
         when(request.getParameter("command")).thenReturn("min");
         servlet.doGet(request, response);
         Assert.assertEquals(minResponse("", ""), stringWriter.toString());
     }
 
     @Test
-    public void EmptyTableSumCommand() throws IOException {
+    public void EmptyTableSumCommand() {
         when(request.getParameter("command")).thenReturn("sum");
         servlet.doGet(request, response);
         Assert.assertEquals(sumResponse(0), stringWriter.toString());
     }
 
     @Test
-    public void EmptyTableCountCommand() throws IOException {
+    public void EmptyTableCountCommand() {
         when(request.getParameter("command")).thenReturn("count");
         servlet.doGet(request, response);
         Assert.assertEquals(numberOfProductsResponse(0), stringWriter.toString());
     }
 
     @Test
-    public void EmptyTableUnknownCommand() throws IOException {
+    public void EmptyTableUnknownCommand() {
         when(request.getParameter("command")).thenReturn("log");
         servlet.doGet(request, response);
         Assert.assertEquals(unknownCommandResponse("log"), stringWriter.toString());
     }
 
     @Test
-    public void MaxCommand() throws SQLException, IOException {
+    public void MaxCommand() throws SQLException {
         when(request.getParameter("command")).thenReturn("max");
         addExamples();
 
@@ -57,7 +56,7 @@ public class QueryServletTest extends TestHelper {
     }
 
     @Test
-    public void MinCommand() throws SQLException, IOException {
+    public void MinCommand() throws SQLException {
         when(request.getParameter("command")).thenReturn("min");
         addExamples();
 
@@ -66,7 +65,7 @@ public class QueryServletTest extends TestHelper {
     }
 
     @Test
-    public void SumCommand() throws SQLException, IOException {
+    public void SumCommand() throws SQLException {
         when(request.getParameter("command")).thenReturn("sum");
         addExamples();
 
@@ -75,7 +74,7 @@ public class QueryServletTest extends TestHelper {
     }
 
     @Test
-    public void CountCommand() throws SQLException, IOException {
+    public void CountCommand() throws SQLException {
         when(request.getParameter("command")).thenReturn("count");
         addExamples();
 
@@ -84,12 +83,12 @@ public class QueryServletTest extends TestHelper {
     }
 
     @Test
-    public void UnknownCommand() throws SQLException, IOException {
-        when(request.getParameter("command")).thenReturn("log");
+    public void UnknownCommand() throws SQLException {
+        when(request.getParameter("command")).thenReturn("integral");
         addExamples();
 
         servlet.doGet(request, response);
-        Assert.assertEquals(unknownCommandResponse("log"), stringWriter.toString());
+        Assert.assertEquals(unknownCommandResponse("integral"), stringWriter.toString());
     }
 
 

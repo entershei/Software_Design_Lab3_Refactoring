@@ -3,7 +3,6 @@ import org.junit.Test;
 import refactoring.servlet.GetProductsServlet;
 import refactoring.utils.Product;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +15,7 @@ public class GetProductsServletTest extends TestHelper {
     private final GetProductsServlet servlet = new GetProductsServlet(database);
 
     @Test
-    public void NoTableExist() throws IOException {
+    public void NoTableExist() {
         servlet.doGet(request, response);
         Assert.assertEquals(expectedGetResponse(new ArrayList<>()), stringWriter.toString());
     }
