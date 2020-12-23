@@ -37,17 +37,19 @@ public class TestHelper {
         dataBase.executeSQL("DELETE FROM PRODUCT");
     }
 
-    protected String expectedResponse(List<Product> products) {
+    protected String expectedGetResponse(List<Product> products) {
         StringBuilder res = new StringBuilder();
-        res.append("<html><body>\n");
-
         for (Product product : products) {
             res.append(product.name).append("\t").append(product.price).append("</br>\n");
         }
 
-        res.append("</body></html>\n");
-        return res.toString();
+        return wrap(res.toString());
     }
+
+    protected String wrap(String s) {
+        return "<html><body>\n" + s + "</body></html>\n";
+    }
+
 
     protected static class Product {
         public final String name;

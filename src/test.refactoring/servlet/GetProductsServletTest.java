@@ -15,7 +15,7 @@ public class GetProductsServletTest extends TestHelper {
     @Test
     public void NoTableExist() throws IOException {
         servlet.doGet(request, response);
-        Assert.assertEquals(expectedResponse(new ArrayList<>()), stringWriter.toString());
+        Assert.assertEquals(expectedGetResponse(new ArrayList<>()), stringWriter.toString());
     }
 
     @Test
@@ -25,7 +25,7 @@ public class GetProductsServletTest extends TestHelper {
         dataBase.addProductToTable(products.get(0).name, products.get(0).price);
         servlet.doGet(request, response);
 
-        Assert.assertEquals(expectedResponse(products), stringWriter.toString());
+        Assert.assertEquals(expectedGetResponse(products), stringWriter.toString());
     }
 
     @Test
@@ -40,6 +40,6 @@ public class GetProductsServletTest extends TestHelper {
         }
         servlet.doGet(request, response);
 
-        Assert.assertEquals(expectedResponse(products), stringWriter.toString());
+        Assert.assertEquals(expectedGetResponse(products), stringWriter.toString());
     }
 }
